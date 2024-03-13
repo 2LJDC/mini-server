@@ -2,5 +2,5 @@
 
 cargo build --release
 
-docker build -t easy-dockerfile .
+docker build -t mini-server .
 
