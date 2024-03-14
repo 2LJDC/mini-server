@@ -8,6 +8,6 @@ COPY www/* /app/www
 
 RUN chmod 755 mini-server
 
-EXPOSE 8080
+EXPOSE 8000
 
 CMD ["/app/mini-server"]
