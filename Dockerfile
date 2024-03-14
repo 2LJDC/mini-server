@@ -10,4 +10,4 @@ RUN chmod 755 mini-server
 
 EXPOSE 8080
 
-CMD ["./app/mini-server"]
+CMD ["/app/mini-server"]
