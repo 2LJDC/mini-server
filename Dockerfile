@@ -1,4 +1,4 @@
-FROM debian:12-slim
+FROM almalinux:minimal
 
 WORKDIR /app
 
