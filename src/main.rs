@@ -71,6 +71,15 @@ async fn login() -> impl Responder {
 }
 
 
+async fn index2() -> impl Responder {
+    //let data = fs::read_to_string("/var/www/index.html").expect("Cannot read index file");
+    let data = std::fs::read("/app/www/index.html").expect("Cannot read index file");
+    HttpResponse::Ok()
+        .content_type("text/html")
+        .body(data)
+}
+
+
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
     HttpServer::new(|| {
@@ -82,7 +91,7 @@ async fn main() -> std::io::Result<()> {
 		.service(login)
         .service(fs::Files::new("/", "/app/www")
 			.index_file("/app/www/index.html"))
-		.default_service(web::get().to(index))
+		.default_service(web::get().to(index2))
 	    
     })
     .bind(("0.0.0.0", 8000))?
