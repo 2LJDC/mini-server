@@ -39,13 +39,28 @@ async fn test(request: HttpRequest) -> impl Responder {
 	HttpResponse::Ok().body("true")
 }
 
+// index
+#[get("/")]
+async fn index() -> impl Responder {
+    //let data = fs::read_to_string("/var/www/index.html").expect("Cannot read index file");
+    let data = std::fs::read("/app/www/index.html").expect("Cannot read index file");
+    HttpResponse::Ok()
+        .content_type("text/html")
+        .body(data)
+}
+
+
+
+
+
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
     HttpServer::new(|| {
         App::new()
 	    .service(test)
-            .service(fs::Files::new("/", "/app/www"))
+		.service(index)
+        .service(fs::Files::new("/", "/app/www"))
 	    
     })
     .bind(("0.0.0.0", 8000))?
