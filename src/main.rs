@@ -101,7 +101,7 @@ async fn main() -> std::io::Result<()> {
 		.service(login)
         .service(fs::Files::new("/", "/app/www"))
 		.service(web::resource("/{project_id}")
-			.route(web::put().to(|| HttpResponse::Ok()))
+			.route(web::put().to(|| HttpResponse::Ok())))
 		.default_service(web::get().to(index2))
 	    
     })
