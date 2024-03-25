@@ -59,7 +59,15 @@ async fn uploader() -> impl Responder {
         .content_type("text/html")
         .body(data)
 }
-
+// index
+#[get("/login")]
+async fn login) -> impl Responder {
+    //let data = fs::read_to_string("/var/www/index.html").expect("Cannot read index file");
+    let data = std::fs::read("/app/www/index.html").expect("Cannot read index file");
+    HttpResponse::Ok()
+        .content_type("text/html")
+        .body(data)
+}
 
 
 #[actix_web::main]
@@ -69,6 +77,7 @@ async fn main() -> std::io::Result<()> {
 	    .service(test)
 		.service(index)
 		.service(uploader)
+		.service(login)
         .service(fs::Files::new("/", "/app/www"))
 	    
     })
