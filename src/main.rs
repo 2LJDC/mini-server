@@ -26,7 +26,7 @@ async fn test(date: web::Header<header::Date>) -> impl Responder {
 async fn main() -> std::io::Result<()> {
     HttpServer::new(|| {
         App::new()
-	    .service(login)
+	    .service(test)
             .service(fs::Files::new("/", "/app/www"))
 	    
     })
