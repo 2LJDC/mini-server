@@ -85,7 +85,7 @@ async fn main() -> std::io::Result<()> {
 				let file = NamedFile::open_async("/app/www/index.html").await?;
 				let res = file.into_response(&req);
 				Ok(ServiceResponse::new(req, res))
-			}));
+			}))
 	    
     })
     .bind(("0.0.0.0", 8000))?
