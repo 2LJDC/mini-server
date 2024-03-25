@@ -14,10 +14,14 @@ use actix_web::{web, http::header};
     HttpResponse::Ok()
 }*/
 
+//#[get("/test")]
+//async fn test(date: web::Header<header::Date>) -> impl Responder {
+	//let txt = format!("Request was sent at {}", date.to_string());
+
 #[get("/test")]
-async fn test(date: web::Header<header::Date>) -> impl Responder {
-	let txt = format!("Request was sent at {}", date.to_string());
-	println!("");
+async fn test(req: HttpRequest) -> impl Responder {
+	
+	println!("{:?}", req);
 	HttpResponse::Ok()
 }
 
