@@ -2,7 +2,7 @@
 use actix_web::{get, App, HttpResponse, HttpServer, Responder};
 use actix_files as fs;
 use actix_web::HttpRequest;
-  |
+
 
 // login
 #[put("/login")]
