@@ -52,7 +52,7 @@ async fn index() -> impl Responder {
 
 // index
 #[get("/uploader")]
-async fn index() -> impl Responder {
+async fn uploader() -> impl Responder {
     //let data = fs::read_to_string("/var/www/index.html").expect("Cannot read index file");
     let data = std::fs::read("/app/www/index.html").expect("Cannot read index file");
     HttpResponse::Ok()
@@ -68,6 +68,7 @@ async fn main() -> std::io::Result<()> {
         App::new()
 	    .service(test)
 		.service(index)
+		.service(uploader)
         .service(fs::Files::new("/", "/app/www"))
 	    
     })
