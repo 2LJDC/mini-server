@@ -4,7 +4,6 @@ use actix_files as fs;
 use actix_web::HttpRequest;
 use actix_web::{web, http::header};
 use actix_web::middleware;
-use actix_files::Files::index_file;
 use actix_files::NamedFile;
 
 // login
