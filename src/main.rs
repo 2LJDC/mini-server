@@ -79,7 +79,16 @@ async fn index2() -> impl Responder {
         .content_type("text/html")
         .body(data)
 }
+/*
+#[put("/update")]
+async fn save_file(req_body: Vec<u8>) -> impl Responder {
 
+
+	let mut file = File::create("name.test").expect("failed to open file");
+	file.write_all(s.as_bytes()).expect("failed to write file");
+
+}
+*/
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
@@ -91,7 +100,8 @@ async fn main() -> std::io::Result<()> {
 		.service(uploader)
 		.service(login)
         .service(fs::Files::new("/", "/app/www"))
-	
+		.service(web::resource("/{project_id}")
+			.route(web::put().to(|| HttpResponse::Ok()))
 		.default_service(web::get().to(index2))
 	    
     })
