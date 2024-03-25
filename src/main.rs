@@ -6,19 +6,19 @@ use actix_web::{get, web, http::header};
 
 // login
 //#[get("/login")]
-async fn login(req: &HttpRequest) -> impl Responder {
+/*async fn login(req: &HttpRequest) -> impl Responder {
 	async fn index(date: web::Header<header::Date>) -> String {
 	let txt = format!("Request was sent at {}", date.to_string())
 }
 
     HttpResponse::Ok()
-}
+}*/
 
 #[get("/test")]
 async fn test(date: web::Header<header::Date>) -> impl Responder {
 	let txt = format!("Request was sent at {}", date.to_string())
 	println!("");
-	
+	HttpResponse::Ok()
 }
 
 
