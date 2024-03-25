@@ -82,7 +82,7 @@ async fn main() -> std::io::Result<()> {
 		.service(login)
         .service(fs::Files::new("/", "/app/www")
 			.index_file("/app/www/index.html"))
-		.default_service(web::to(index))
+		.default_service(web::get().to(index))
 	    
     })
     .bind(("0.0.0.0", 8000))?
