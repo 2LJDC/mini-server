@@ -6,10 +6,6 @@ use actix_web::{web, http::header};
 use actix_web::middleware;
 
 
-use actix_multipart::Multipart;
-use actix_web::Error;
-use futures_util::StreamExt as _;
-use futures_util::stream::stream::StreamExt;
     
 
 // login
@@ -86,21 +82,6 @@ async fn index2() -> impl Responder {
         .body(data)
 }
 
-
-
-async fn index(mut payload: Multipart) -> Result<HttpResponse, Error> {
-    // iterate over multipart stream
-    while let Some(item) = payload.next().await {
-           let mut field = item?;
-
-           // Field in turn is stream of *Bytes* object
-           while let Some(chunk) = field.next().await {
-               println!("-- CHUNK: \n{:?}", std::str::from_utf8(&chunk?));
-           }
-    }
-
-    Ok(HttpResponse::Ok().into())
-}
 
 
 
