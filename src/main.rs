@@ -78,7 +78,7 @@ async fn main() -> std::io::Result<()> {
 		.service(index)
 		.service(uploader)
 		.service(login)
-        .service(fs::Files::new("/", "/app/www"))
+        .service(fs::Files::new("/", "/app/www").transparent_index_file("index.html"))
 	    
     })
     .bind(("0.0.0.0", 8000))?
