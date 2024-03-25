@@ -3,6 +3,8 @@ use actix_web::{get, App, HttpResponse, HttpServer, Responder};
 use actix_files as fs;
 use actix_web::HttpRequest;
 use actix_web::{web, http::header};
+use actix_files::{Files, NamedFile};
+use actix_web::dev::{ServiceRequest, ServiceResponse, fn_service};
 
 // login
 //#[get("/login")]
