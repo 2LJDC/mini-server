@@ -19,7 +19,7 @@ use actix_web::{web, http::header};
 	//let txt = format!("Request was sent at {}", date.to_string());
 
 #[get("/test")]
-async fn test(req: HttpRequest) -> impl Responder {
+async fn test(request: HttpRequest) -> impl Responder {
 	let req_headers = request.headers();
 	let basic_auth_header = req_headers.get("Authorization");
 	let basic_auth: &str = basic_auth_header.unwrap().to_str().unwrap();
