@@ -61,7 +61,7 @@ async fn uploader() -> impl Responder {
 }
 // index
 #[get("/login")]
-async fn logi() -> impl Responder {
+async fn login() -> impl Responder {
     //let data = fs::read_to_string("/var/www/index.html").expect("Cannot read index file");
     let data = std::fs::read("/app/www/index.html").expect("Cannot read index file");
     HttpResponse::Ok()
