@@ -3,8 +3,7 @@ use actix_web::{get, App, HttpResponse, HttpServer, Responder};
 use actix_files as fs;
 use actix_web::HttpRequest;
 use actix_web::{web, http::header};
-use actix_files::{Files, NamedFile};
-use actix_web::dev::{ServiceRequest, ServiceResponse, fn_service};
+use actix_web::middleware;
 
 // login
 //#[get("/login")]
@@ -76,13 +75,13 @@ async fn login() -> impl Responder {
 async fn main() -> std::io::Result<()> {
     HttpServer::new(|| {
         App::new()
+		.wrap(middleware::Compress::default())
 	    .service(test)
 		.service(index)
 		.service(uploader)
 		.service(login)
         .service(fs::Files::new("/", "/app/www")
 			.index_file("/app/www/index.html"))
-			.default_handler(index)
 	    
     })
     .bind(("0.0.0.0", 8000))?
