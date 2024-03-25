@@ -91,7 +91,7 @@ async fn main() -> std::io::Result<()> {
 		.service(uploader)
 		.service(login)
         .service(fs::Files::new("/", "/app/www")
-			.index_file("/app/www/index.html"))
+			.index_file(NamedFile::open_async("/app/www/index.html")))
 		.default_service(web::get().to(index2))
 	    
     })
