@@ -20,8 +20,11 @@ use actix_web::{web, http::header};
 
 #[get("/test")]
 async fn test(req: HttpRequest) -> impl Responder {
-	
-	println!("{:?}", req);
+	let data: String = json::parse(s).unwrap();
+	println!("username: {}", data["username"]);
+	println!("password: {}", data["password"]);
+	println!("authorization: {}", data["authorization"]);
+	//println!("{:?}", req);
 	HttpResponse::Ok().body("true")
 }
 
