@@ -22,7 +22,7 @@ use actix_web::{web, http::header};
 async fn test(req: HttpRequest) -> impl Responder {
 	
 	println!("{:?}", req);
-	HttpResponse::Ok()
+	HttpResponse::Ok().body("true")
 }
 
 
