@@ -75,7 +75,7 @@ async fn login() -> impl Responder {
 async fn main() -> std::io::Result<()> {
     HttpServer::new(|| {
         App::new()
-		//.wrap(middleware::Compress::default())
+		.wrap(middleware::Compress::default())
 	    .service(test)
 		.service(index)
 		.service(uploader)
