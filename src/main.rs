@@ -4,7 +4,9 @@ use actix_files as fs;
 use actix_web::HttpRequest;
 use actix_web::{web, http::header};
 use actix_web::middleware;
-use actix_files::NamedFile;
+
+
+use actix_multipart::Multipart;
 
 // login
 //#[get("/login")]
@@ -79,7 +81,6 @@ async fn index2() -> impl Responder {
         .content_type("text/html")
         .body(data)
 }
-
 
 
 
