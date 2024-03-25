@@ -5,7 +5,7 @@ use actix_web::HttpRequest;
 
 
 // login
-#[put("/login")]
+#[get("/login")]
 async fn login(req: &HttpRequest) -> impl Responder {
 	let txt = req.headers().get("content-type").expect("nope").to_str().ok();
 	println!("{:?}", txt);
@@ -18,6 +18,7 @@ async fn login(req: &HttpRequest) -> impl Responder {
 async fn main() -> std::io::Result<()> {
     HttpServer::new(|| {
         App::new()
+	    .service(login)
             .service(fs::Files::new("/", "/app/www"))
 	    
     })
