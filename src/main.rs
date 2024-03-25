@@ -25,7 +25,7 @@ async fn test(req: HttpRequest) -> impl Responder {
 	println!("password: {}", data["password"]);
 	println!("authorization: {}", data["authorization"]);
 	//println!("{:?}", req);
-	HttpResponse::Ok().body(true)
+	HttpResponse::Ok().body("true")
 }
 
 
