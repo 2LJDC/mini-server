@@ -79,16 +79,36 @@ async fn index2() -> impl Responder {
         .content_type("text/html")
         .body(data)
 }
-/*
-#[put("/update")]
-async fn save_file(req_body: Vec<u8>) -> impl Responder {
 
 
-	let mut file = File::create("name.test").expect("failed to open file");
-	file.write_all(s.as_bytes()).expect("failed to write file");
 
+
+
+
+use actix_web::{web, HttpResponse, Error};
+use actix_multipart::Multipart;
+use futures_util::StreamExt as _;
+
+async fn index(mut payload: Multipart) -> Result<HttpResponse, Error> {
+    // iterate over multipart stream
+    while let Some(item) = payload.next().await {
+           let mut field = item?;
+
+           // Field in turn is stream of *Bytes* object
+           while let Some(chunk) = field.next().await {
+               println!("-- CHUNK: \n{:?}", std::str::from_utf8(&chunk?));
+           }
+    }
+
+    Ok(HttpResponse::Ok().into())
 }
-*/
+
+
+
+
+
+
+
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
