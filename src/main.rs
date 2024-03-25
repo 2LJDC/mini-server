@@ -21,7 +21,7 @@ use actix_web::{web, http::header};
 #[get("/test")]
 async fn test(req: HttpRequest) -> impl Responder {
 
-	let data = String = json::parse(format!("{}", req)).unwrap();
+	let data = String = json::parse(&format!("{:?}", req)).unwrap();
 
 	println!("username: {}", data["username"]);
 	println!("password: {}", data["password"]);
