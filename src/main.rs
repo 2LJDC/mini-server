@@ -82,12 +82,7 @@ async fn main() -> std::io::Result<()> {
 		.service(login)
         .service(fs::Files::new("/", "/app/www")
 			.index_file("/app/www/index.html"))
-			.default_handler(fn_service(|req: ServiceRequest| async {
-				let (req, _) = req.into_parts();
-				let file = NamedFile::open_async("/app/www/index.html").await?;
-				let res = file.into_response(&req);
-				Ok(ServiceResponse::new(req, res))
-			}))
+			.default_handler(index)
 	    
     })
     .bind(("0.0.0.0", 8000))?
