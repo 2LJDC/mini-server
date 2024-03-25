@@ -2,7 +2,7 @@
 use actix_web::{get, App, HttpResponse, HttpServer, Responder};
 use actix_files as fs;
 use actix_web::HttpRequest;
-use actix_web::{get, web, http::header};
+use actix_web::{web, http::header};
 
 // login
 //#[get("/login")]
@@ -16,7 +16,7 @@ use actix_web::{get, web, http::header};
 
 #[get("/test")]
 async fn test(date: web::Header<header::Date>) -> impl Responder {
-	let txt = format!("Request was sent at {}", date.to_string())
+	let txt = format!("Request was sent at {}", date.to_string());
 	println!("");
 	HttpResponse::Ok()
 }
