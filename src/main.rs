@@ -8,7 +8,7 @@ use actix_web::HttpRequest;
 #[put("/login")]
 async fn login(req: &HttpRequest) -> impl Responder {
 	let txt = req.headers().get("content-type").expect("nope").to_str().ok();
-	println!("{}", txt);
+	println!("{:?}", txt);
 
     HttpResponse::Ok()
 }
