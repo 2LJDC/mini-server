@@ -2,15 +2,23 @@
 use actix_web::{get, App, HttpResponse, HttpServer, Responder};
 use actix_files as fs;
 use actix_web::HttpRequest;
-
+use actix_web::{get, web, http::header};
 
 // login
-#[get("/login")]
+//#[get("/login")]
 async fn login(req: &HttpRequest) -> impl Responder {
-	let txt = req.headers().get("content-type").expect("nope").to_str().ok();
-	println!("{:?}", txt);
+	async fn index(date: web::Header<header::Date>) -> String {
+	let txt = format!("Request was sent at {}", date.to_string())
+}
 
     HttpResponse::Ok()
+}
+
+#[get("/test")]
+async fn test(date: web::Header<header::Date>) -> impl Responder {
+	let txt = format!("Request was sent at {}", date.to_string())
+	println!("");
+	
 }
 
 
