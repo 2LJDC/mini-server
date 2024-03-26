@@ -34,6 +34,8 @@ async fn index(req: HttpRequest) -> Result<fs::NamedFile, Error> {
     Ok(file)
 }
 
+
+
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
     HttpServer::new(|| {
