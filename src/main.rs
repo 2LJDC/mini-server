@@ -9,6 +9,7 @@ use actix_web::middleware;
 use actix_web::http::header::{ContentDisposition, DispositionType};
 use actix_web::Error;
 
+
 // login test
 #[get("/test")]
 async fn test(request: HttpRequest) -> impl Responder {
@@ -19,6 +20,48 @@ async fn test(request: HttpRequest) -> impl Responder {
 
 	HttpResponse::Ok().body("true")
 }
+
+
+// status
+async fn status() -> String {
+    "Server is up and running.".to_string()
+}
+
+
+// index
+async fn index(req: HttpRequest) -> Result<fs::NamedFile, Error> {
+    let file = fs::NamedFile::open("/app/www/index.html")?;
+    Ok(file)
+}
+
+#[actix_web::main]
+async fn main() -> std::io::Result<()> {
+    HttpServer::new(|| {
+        App::new()
+		.wrap(middleware::Compress::default())
+		.route("/status", web::get().to(status))
+		.route("/", web::get().to(index))
+		.route("/login", web::get().to(index))
+		.route("/uploader", web::get().to(index))
+	    .service(test)
+		//.service(index)
+		//.route("/",web::get().to(index2))
+		//.service(uploader)
+		//.service(login)
+        .service(fs::Files::new("/", "/app/www"))
+		//.service(web::resource("/{project_id}").route(web::put().to(|| HttpResponse::Ok())))
+		.default_service(web::get().to(index))
+	    
+    })
+    .bind(("0.0.0.0", 8000))?
+    .run()
+    .await
+}
+
+
+
+
+
 
 /*
 // index
@@ -62,51 +105,3 @@ async fn index2() -> impl Responder {
         .body(data)
 }
 */
-
-
-//status
-async fn status() -> String {
-    "Server is up and running.".to_string()
-}
-
-
-
-
-async fn index(req: HttpRequest) -> Result<fs::NamedFile, Error> {
-    let file = fs::NamedFile::open("/app/www/index.html")?;
-    Ok(file)
-	
-}
-
-
-
-
-
-
-
-
-#[actix_web::main]
-async fn main() -> std::io::Result<()> {
-    HttpServer::new(|| {
-        App::new()
-		.wrap(middleware::Compress::default())
-		.route("/status", web::get().to(status))
-		.route("/", web::get().to(index))
-		.route("/login", web::get().to(index))
-		.route("/uploader", web::get().to(index))
-	    .service(test)
-		//.service(index)
-		//.route("/",web::get().to(index2))
-		//.service(uploader)
-		//.service(login)
-        .service(fs::Files::new("/", "/app/www"))
-		.service(web::resource("/{project_id}")
-			.route(web::put().to(|| HttpResponse::Ok())))
-
-		.default_service(web::get().to(index))
-	    
-    })
-    .bind(("0.0.0.0", 8000))?
-    .run()
-    .await
-}
