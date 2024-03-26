@@ -8,19 +8,6 @@ use actix_web::middleware;
 
     
 
-// login
-//#[get("/login")]
-/*async fn login(req: &HttpRequest) -> impl Responder {
-	async fn index(date: web::Header<header::Date>) -> String {
-	let txt = format!("Request was sent at {}", date.to_string())
-}
-
-    HttpResponse::Ok()
-}*/
-
-//#[get("/test")]
-//async fn test(date: web::Header<header::Date>) -> impl Responder {
-	//let txt = format!("Request was sent at {}", date.to_string());
 
 #[get("/test")]
 async fn test(request: HttpRequest) -> impl Responder {
@@ -28,37 +15,28 @@ async fn test(request: HttpRequest) -> impl Responder {
 	let basic_auth_header = req_headers.get("Authorization");
 	let basic_auth: &str = basic_auth_header.unwrap().to_str().unwrap();
 	println!("{}", basic_auth);
-	//let data = json::parse(&format!("{:?}", HttpRequest::headers(&req))).unwrap();
-	//let data = req.headers().get("username").unwrap().to_str().ok();
-	//if let Some(user) = req.headers().get("username").unwrap().to_str().ok(){
-	//	println!("{}", user);
-	//} else {
-	//	println!("nope");
-	//}
 
-	//println!("username: {}", data);
-	//println!("password: {}", data["password"]);
-	//println!("authorization: {}", data["authorization"]);
-	//println!("{:?}", req);
 	HttpResponse::Ok().body("true")
 }
+
 
 // index
 #[get("/")]
 async fn index() -> impl Responder {
     let data = fs::read_to_string("/var/www/index.html").expect("Cannot read index file");
-    //let data = std::fs::read("/app/www/index.html").expect("Cannot read index file");
+    let data = std::fs::read("/app/www/index.html").expect("Cannot read index file");
     HttpResponse::Ok()
         .content_type("text/html")
         .body(data)
+
 }
 
 
 // index
 #[get("/uploader")]
 async fn uploader() -> impl Responder {
-    let data = fs::read_to_string("/var/www/index.html").expect("Cannot read index file");
-    //let data = std::fs::read("/app/www/index.html").expect("Cannot read index file");
+    //let data = fs::read_to_string("/var/www/index.html").expect("Cannot read index file");
+    let data = std::fs::read("/app/www/index.html").expect("Cannot read index file");
     HttpResponse::Ok()
         .content_type("text/html")
         .body(data)
@@ -66,8 +44,8 @@ async fn uploader() -> impl Responder {
 // index
 #[get("/login")]
 async fn login() -> impl Responder {
-    let data = fs::read_to_string("/var/www/index.html").expect("Cannot read index file");
-    //let data = std::fs::read("/app/www/index.html").expect("Cannot read index file");
+    //let data = fs::read_to_string("/var/www/index.html").expect("Cannot read index file");
+    let data = std::fs::read("/app/www/index.html").expect("Cannot read index file");
     HttpResponse::Ok()
         .content_type("text/html")
         .body(data)
@@ -75,8 +53,8 @@ async fn login() -> impl Responder {
 
 
 async fn index2() -> impl Responder {
-    let data = fs::read_to_string("/var/www/index.html").expect("Cannot read index file");
-    //let data = std::fs::read("/app/www/index.html").expect("Cannot read index file");
+    //let data = fs::read_to_string("/var/www/index.html").expect("Cannot read index file");
+    let data = std::fs::read("/app/www/index.html").expect("Cannot read index file");
     HttpResponse::Ok()
         .content_type("text/html")
         .body(data)
@@ -91,6 +69,23 @@ async fn status() -> String {
 
 
 
+#[get("/")]
+async fn index3(req: HttpRequest) -> Result<fs::NamedFile, Error> {
+    let file = fs::NamedFile::open("/app/www/index.html")?;
+    Ok(file
+        .use_last_modified(true)
+        .set_content_disposition(ContentDisposition {
+            disposition: DispositionType::Attachment,
+            parameters: vec![],
+        }))
+}
+
+
+
+
+
+
+
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
@@ -99,7 +94,7 @@ async fn main() -> std::io::Result<()> {
 		.wrap(middleware::Compress::default())
 		.route("/status", web::get().to(status))
 	    .service(test)
-		.service(index)
+		.service(index3)
 		.service(uploader)
 		.service(login)
         .service(fs::Files::new("/", "/app/www"))
