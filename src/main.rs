@@ -76,9 +76,10 @@ async fn status() -> String {
 #[get("/")]
 async fn index3(req: HttpRequest) -> Result<fs::NamedFile, Error> {
     let file = fs::NamedFile::open("/app/www/index.html")?;
-    HttpResponse::Ok()
+    Ok(HttpResponse::Ok()
         .content_type("text/html")
         .body(file)
+	)
 }
 
 
