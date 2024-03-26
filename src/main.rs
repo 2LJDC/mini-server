@@ -76,12 +76,9 @@ async fn status() -> String {
 #[get("/")]
 async fn index3(req: HttpRequest) -> Result<fs::NamedFile, Error> {
     let file = fs::NamedFile::open("/app/www/index.html")?;
-    HttpResponse::Ok(file
-        .use_last_modified(true)
-        .set_content_disposition(ContentDisposition {
-            disposition: DispositionType::Attachment,
-            parameters: vec![],
-        }))
+    HttpResponse::Ok()
+        .content_type("text/html")
+        .body(file)
 }
 
 
