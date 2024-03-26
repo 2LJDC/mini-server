@@ -91,6 +91,7 @@ async fn main() -> std::io::Result<()> {
         App::new()
 		.wrap(middleware::Compress::default())
 		.route("/status", web::get().to(status))
+		.route("/", web::get().to(index))
 		.route("/login", web::get().to(index))
 		.route("/uploader", web::get().to(index))
 	    .service(test)
