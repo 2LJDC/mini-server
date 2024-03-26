@@ -46,8 +46,8 @@ async fn test(request: HttpRequest) -> impl Responder {
 // index
 #[get("/")]
 async fn index() -> impl Responder {
-    //let data = fs::read_to_string("/var/www/index.html").expect("Cannot read index file");
-    let data = std::fs::read("/app/www/index.html").expect("Cannot read index file");
+    let data = fs::read_to_string("/var/www/index.html").expect("Cannot read index file");
+    //let data = std::fs::read("/app/www/index.html").expect("Cannot read index file");
     HttpResponse::Ok()
         .content_type("text/html")
         .body(data)
@@ -57,8 +57,8 @@ async fn index() -> impl Responder {
 // index
 #[get("/uploader")]
 async fn uploader() -> impl Responder {
-    //let data = fs::read_to_string("/var/www/index.html").expect("Cannot read index file");
-    let data = std::fs::read("/app/www/index.html").expect("Cannot read index file");
+    let data = fs::read_to_string("/var/www/index.html").expect("Cannot read index file");
+    //let data = std::fs::read("/app/www/index.html").expect("Cannot read index file");
     HttpResponse::Ok()
         .content_type("text/html")
         .body(data)
@@ -66,8 +66,8 @@ async fn uploader() -> impl Responder {
 // index
 #[get("/login")]
 async fn login() -> impl Responder {
-    //let data = fs::read_to_string("/var/www/index.html").expect("Cannot read index file");
-    let data = std::fs::read("/app/www/index.html").expect("Cannot read index file");
+    let data = fs::read_to_string("/var/www/index.html").expect("Cannot read index file");
+    //let data = std::fs::read("/app/www/index.html").expect("Cannot read index file");
     HttpResponse::Ok()
         .content_type("text/html")
         .body(data)
@@ -75,8 +75,8 @@ async fn login() -> impl Responder {
 
 
 async fn index2() -> impl Responder {
-    //let data = fs::read_to_string("/var/www/index.html").expect("Cannot read index file");
-    let data = std::fs::read("/app/www/index.html").expect("Cannot read index file");
+    let data = fs::read_to_string("/var/www/index.html").expect("Cannot read index file");
+    //let data = std::fs::read("/app/www/index.html").expect("Cannot read index file");
     HttpResponse::Ok()
         .content_type("text/html")
         .body(data)
