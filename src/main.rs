@@ -53,7 +53,7 @@ async fn login() -> impl Responder {
 }
 
 
-
+/*
 async fn index2() -> impl Responder {
     //let data = fs::read_to_string("/var/www/index.html").expect("Cannot read index file");
     let data = std::fs::read("/app/www/index.html").expect("Cannot read index file");
@@ -61,7 +61,7 @@ async fn index2() -> impl Responder {
         .content_type("text/html")
         .body(data)
 }
-
+*/
 
 
 //status
@@ -71,7 +71,7 @@ async fn status() -> String {
 
 
 
-
+/*
 // index
 #[get("/")]
 async fn index3(req: HttpRequest) -> Result<fs::NamedFile, Error> {
@@ -79,7 +79,7 @@ async fn index3(req: HttpRequest) -> Result<fs::NamedFile, Error> {
     Ok(file)
 	
 }
-
+*/
 
 
 
@@ -94,7 +94,7 @@ async fn main() -> std::io::Result<()> {
 		.wrap(middleware::Compress::default())
 		.route("/status", web::get().to(status))
 	    .service(test)
-		.service(index3)
+		.service(web::get().to(index2))
 		.service(uploader)
 		.service(login)
         .service(fs::Files::new("/", "/app/www"))
