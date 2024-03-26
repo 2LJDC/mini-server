@@ -32,7 +32,7 @@ async fn index() -> impl Responder {
 
 }
 
-
+/*
 // index
 #[get("/uploader")]
 async fn uploader() -> impl Responder {
@@ -51,9 +51,9 @@ async fn login() -> impl Responder {
         .content_type("text/html")
         .body(data)
 }
+*/
 
-
-
+/*
 async fn index2() -> impl Responder {
     //let data = fs::read_to_string("/var/www/index.html").expect("Cannot read index file");
     let data = std::fs::read("/app/www/index.html").expect("Cannot read index file");
@@ -61,7 +61,7 @@ async fn index2() -> impl Responder {
         .content_type("text/html")
         .body(data)
 }
-
+*/
 
 
 //status
@@ -72,7 +72,7 @@ async fn status() -> String {
 
 
 
-async fn index3(req: HttpRequest) -> Result<fs::NamedFile, Error> {
+async fn index(req: HttpRequest) -> Result<fs::NamedFile, Error> {
     let file = fs::NamedFile::open("/app/www/index.html")?;
     Ok(file)
 	
@@ -91,6 +91,8 @@ async fn main() -> std::io::Result<()> {
         App::new()
 		.wrap(middleware::Compress::default())
 		.route("/status", web::get().to(status))
+		.route("/login", web::get().to(index))
+		.route("/uploader", web::get().to(index))
 	    .service(test)
 		//.service(index)
 		//.route("/",web::get().to(index2))
@@ -100,7 +102,7 @@ async fn main() -> std::io::Result<()> {
 		.service(web::resource("/{project_id}")
 			.route(web::put().to(|| HttpResponse::Ok())))
 
-		.default_service(web::get().to(index3))
+		.default_service(web::get().to(index))
 	    
     })
     .bind(("0.0.0.0", 8000))?
