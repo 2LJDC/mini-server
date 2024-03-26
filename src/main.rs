@@ -53,7 +53,7 @@ async fn login() -> impl Responder {
 }
 
 
-/*
+
 async fn index2() -> impl Responder {
     //let data = fs::read_to_string("/var/www/index.html").expect("Cannot read index file");
     let data = std::fs::read("/app/www/index.html").expect("Cannot read index file");
@@ -61,7 +61,7 @@ async fn index2() -> impl Responder {
         .content_type("text/html")
         .body(data)
 }
-*/
+
 
 
 //status
