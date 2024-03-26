@@ -83,6 +83,9 @@ async fn index2() -> impl Responder {
 }
 
 
+async fn status() -> String {
+    "Server is up and running.".to_string()
+}
 
 
 
@@ -94,6 +97,7 @@ async fn main() -> std::io::Result<()> {
     HttpServer::new(|| {
         App::new()
 		.wrap(middleware::Compress::default())
+		.route("/status", web::get().to(status))
 	    .service(test)
 		.service(index)
 		.service(uploader)
