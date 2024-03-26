@@ -94,12 +94,14 @@ async fn main() -> std::io::Result<()> {
 		.wrap(middleware::Compress::default())
 		.route("/status", web::get().to(status))
 	    .service(test)
-		.service(web::get().to(index2))
+		//.service(index)
+		.route("/",web::get().to(index2))
 		.service(uploader)
 		.service(login)
         .service(fs::Files::new("/", "/app/www"))
 		.service(web::resource("/{project_id}")
 			.route(web::put().to(|| HttpResponse::Ok())))
+
 		.default_service(web::get().to(index2))
 	    
     })
