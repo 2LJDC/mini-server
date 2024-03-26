@@ -20,7 +20,7 @@ async fn test(request: HttpRequest) -> impl Responder {
 	HttpResponse::Ok().body("true")
 }
 
-
+/*
 // index
 #[get("/")]
 async fn index() -> impl Responder {
@@ -31,7 +31,7 @@ async fn index() -> impl Responder {
         .body(data)
 
 }
-
+*/
 /*
 // index
 #[get("/uploader")]
