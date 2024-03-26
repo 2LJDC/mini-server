@@ -9,7 +9,7 @@ use actix_web::middleware;
 use actix_web::http::header::{ContentDisposition, DispositionType};
 use actix_web::Error;
 
-
+// login test
 #[get("/test")]
 async fn test(request: HttpRequest) -> impl Responder {
 	let req_headers = request.headers();
@@ -53,6 +53,7 @@ async fn login() -> impl Responder {
 }
 
 
+
 async fn index2() -> impl Responder {
     //let data = fs::read_to_string("/var/www/index.html").expect("Cannot read index file");
     let data = std::fs::read("/app/www/index.html").expect("Cannot read index file");
@@ -62,6 +63,8 @@ async fn index2() -> impl Responder {
 }
 
 
+
+//status
 async fn status() -> String {
     "Server is up and running.".to_string()
 }
@@ -69,11 +72,11 @@ async fn status() -> String {
 
 
 
-
+// index
 #[get("/")]
 async fn index3(req: HttpRequest) -> Result<fs::NamedFile, Error> {
     let file = fs::NamedFile::open("/app/www/index.html")?;
-    Ok(file
+    HttpResponse::Ok(file
         .use_last_modified(true)
         .set_content_disposition(ContentDisposition {
             disposition: DispositionType::Attachment,
