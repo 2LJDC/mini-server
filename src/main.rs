@@ -95,7 +95,7 @@ async fn main() -> std::io::Result<()> {
 		.route("/status", web::get().to(status))
 	    .service(test)
 		//.service(index)
-		.route("/",web::get().to(index2))
+		//.route("/",web::get().to(index2))
 		.service(uploader)
 		.service(login)
         .service(fs::Files::new("/", "/app/www"))
