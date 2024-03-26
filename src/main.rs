@@ -71,15 +71,13 @@ async fn status() -> String {
 
 
 
-/*
-// index
-#[get("/")]
+
 async fn index3(req: HttpRequest) -> Result<fs::NamedFile, Error> {
     let file = fs::NamedFile::open("/app/www/index.html")?;
     Ok(file)
 	
 }
-*/
+
 
 
 
@@ -102,7 +100,7 @@ async fn main() -> std::io::Result<()> {
 		.service(web::resource("/{project_id}")
 			.route(web::put().to(|| HttpResponse::Ok())))
 
-		.default_service(web::get().to(index2))
+		.default_service(web::get().to(index3))
 	    
     })
     .bind(("0.0.0.0", 8000))?
