@@ -65,7 +65,7 @@ async fn printdata(request: HttpRequest) -> impl Responder {
 		};
 
 	
-	let datastr = format!("{:?}", data.map(|order| order.order_id.unwrap()).collect());
+	let datastr = format!("{:?}", data);
 
 	
 	HttpResponse::Ok().body(datastr)
