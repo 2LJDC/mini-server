@@ -37,7 +37,7 @@ async fn test(request: HttpRequest) -> impl Responder {
 
 	
 	let query = "INSERT INTO kunde (anrede, name, geburtsdatum, mail, tel, vorlage, farbe, eigeneVorstellungen, sonstiges) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)";
-*/
+
 
 			
 
@@ -48,7 +48,7 @@ pub fn get_configuration() -> Result<Settings, config::ConfigError> {
 		.build()?;
 	settings.try_deserialize::<Settings>()
 }
-
+*/
 
 
 // database
