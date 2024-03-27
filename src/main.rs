@@ -67,7 +67,7 @@ async fn printdata(request: HttpRequest) -> impl Responder {
 		};
 
 	
-	let datastr = format!("{:?}", data.0);
+	let datastr = format!("{:?}", data);
 
 	
 	HttpResponse::Ok().body(datastr)
