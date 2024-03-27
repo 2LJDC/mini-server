@@ -66,11 +66,32 @@ async fn printdata(request: HttpRequest) -> impl Responder {
 
 	
 	let data = match sqlx::query("SELECT * FROM kunde;")
-		.fetch_one(&mut pool)
-		.await{
+		.execute(&mut pool).await{
 			Ok(data) => data,
 			Err(e) => return HttpResponse::Ok().body("nono"),
 		};
+
+
+
+		match sqlx::query(query)
+		.bind(&customer["anrede"].to_string())
+		.bind(&customer["name"].to_string())
+		.bind(&customer["geburtstag"].to_string())
+		.bind(&customer["mail"].to_string())
+		.bind(&customer["tel"].to_string())
+		.bind(&customer["vorlage"].to_string())
+		.bind(&customer["farbe"].to_string())
+		.bind(&customer["eigeneVorstellungen"].to_string())
+		.bind(&customer["sonstiges"].to_string())
+		.execute(&pool).await {
+			Ok(_) => Ok(()),
+			Err(e) => Err(Box::new(e)),
+		}
+
+
+
+
+
 	
 	HttpResponse::Ok().body(data)
 }
