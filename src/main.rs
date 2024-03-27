@@ -9,16 +9,7 @@ use actix_web::middleware;
 //use actix_web::http::header::{ContentDisposition, DispositionType};
 use actix_web::Error;
 
-/*
-#[derive(FromRow)]
-struct MSG {
-    Kundennummer: String,
-    Name: String,
-	Email: String,
-	Nachricht: String,
-	Status: String,
-}
-*/
+
 
 // login test
 #[get("/test")]
@@ -33,8 +24,7 @@ async fn test(request: HttpRequest) -> impl Responder {
 
 
 
-async fn dump_all() -> String {
-    let url = format!("postgres://postgres:{}@{}:{}", "deeznuts", "85.215.154.152", "5432");
+async fn dump_all(url: &str) -> String {
 	let pool = match sqlx::postgres::PgPool::connect(&url).await {
 		Ok(p) => p,
 		Err(_) => panic!("lel1"),
@@ -51,7 +41,6 @@ async fn dump_all() -> String {
 	}
 
 	return arr
-
 }
 
 // database
@@ -60,41 +49,11 @@ async fn printdata(request: HttpRequest) -> impl Responder {
 	let basic_auth_header = req_headers.get("Authorization");
 	let basic_auth: &str = basic_auth_header.unwrap().to_str().unwrap();
 
-	let data = dump_all().await;
+	let url = format!("postgres://postgres:{}@{}:{}", "deeznuts", "85.215.154.152", "5432");
+	let data = dump_all(&url).await;
 	
 	HttpResponse::Ok().body(data)
 }
-/*
-	let url = format!("postgres://postgres:{}@{}:{}", "deeznuts", "85.215.154.152", "5432");
-	println!("{}", &url);
-	
-	let pool = match sqlx::postgres::PgPool::connect(&url).await {
-		Ok(p) => p,
-		Err(e) => return HttpResponse::Ok().body("nono"),
-	};
-
-	
-	//let data = match sqlx::query("SELECT * FROM kunde;")
-	//	.execute(&pool).await{
-	let data = match sqlx::query("select 'kek' as Name")
-		.fetch_one(&pool).await{
-			Ok(data) => data,
-			Err(e) => return HttpResponse::Ok().body("nono"),
-		};
-
-	//let data: Vec<String> = match sqlx::query_scalar("SELECT * FROM kunde;")
-	let data = match sqlx::query_scalar("SELECT * FROM kunde;")
-		.fetch_one(&pool).await{
-			Ok(data) => data,
-			Err(e) => return HttpResponse::Ok().body("nono dont..."),
-		};
-
-	
-	let datastr = format!("{:?}", data);
-
-	
-	HttpResponse::Ok().body(datastr)
-*/
 
 
 	
@@ -141,47 +100,3 @@ async fn main() -> std::io::Result<()> {
 
 
 
-
-
-/*
-// index
-#[get("/")]
-async fn index() -> impl Responder {
-    //let data = fs::read_to_string("/var/www/index.html").expect("Cannot read index file");
-    let data = std::fs::read("/app/www/index.html").expect("Cannot read index file");
-    HttpResponse::Ok()
-        .content_type("text/html")
-        .body(data)
-
-}
-*/
-/*
-// index
-#[get("/uploader")]
-async fn uploader() -> impl Responder {
-    //let data = fs::read_to_string("/var/www/index.html").expect("Cannot read index file");
-    let data = std::fs::read("/app/www/index.html").expect("Cannot read index file");
-    HttpResponse::Ok()
-        .content_type("text/html")
-        .body(data)
-}
-// index
-#[get("/login")]
-async fn login() -> impl Responder {
-    //let data = fs::read_to_string("/var/www/index.html").expect("Cannot read index file");
-    let data = std::fs::read("/app/www/index.html").expect("Cannot read index file");
-    HttpResponse::Ok()
-        .content_type("text/html")
-        .body(data)
-}
-*/
-
-/*
-async fn index2() -> impl Responder {
-    //let data = fs::read_to_string("/var/www/index.html").expect("Cannot read index file");
-    let data = std::fs::read("/app/www/index.html").expect("Cannot read index file");
-    HttpResponse::Ok()
-        .content_type("text/html")
-        .body(data)
-}
-*/
