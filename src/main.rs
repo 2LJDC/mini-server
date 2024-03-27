@@ -63,7 +63,7 @@ async fn printdata(request: HttpRequest) -> impl Responder {
 	let data = dump_all;
 	
 	HttpResponse::Ok().body(data);
-	
+}
 /*
 	let url = format!("postgres://postgres:{}@{}:{}", "deeznuts", "85.215.154.152", "5432");
 	println!("{}", &url);
@@ -95,7 +95,7 @@ async fn printdata(request: HttpRequest) -> impl Responder {
 	
 	HttpResponse::Ok().body(datastr)
 */
-}
+
 
 	
 
