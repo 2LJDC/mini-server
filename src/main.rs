@@ -83,12 +83,7 @@ async fn main() -> std::io::Result<()> {
 		.route("/uploader", web::get().to(index))
 		.route("/printdata", web::get().to(printdata))
 	    .service(test)
-		//.service(index)
-		//.route("/",web::get().to(index2))
-		//.service(uploader)
-		//.service(login)
         .service(fs::Files::new("/", "/app/www"))
-		//.service(web::resource("/{project_id}").route(web::put().to(|| HttpResponse::Ok())))
 		.default_service(web::get().to(index))
 	    
     })
