@@ -60,7 +60,7 @@ async fn printdata(request: HttpRequest) -> impl Responder {
 	let basic_auth_header = req_headers.get("Authorization");
 	let basic_auth: &str = basic_auth_header.unwrap().to_str().unwrap();
 
-	let data = dump_all.await;
+	let data = dump_all;
 	
 	HttpResponse::Ok().body(data)
 }
