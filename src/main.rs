@@ -10,7 +10,7 @@ use actix_web::middleware;
 use actix_web::Error;
 use sqlx::FromRow;
 
-#[derive(sqlx::FromRow)]
+#[derive(FromRow)]
 struct MSG {
     Kundennummer: String,
     Name: String,
