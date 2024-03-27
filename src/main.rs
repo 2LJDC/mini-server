@@ -19,6 +19,10 @@ async fn test(request: HttpRequest) -> impl Responder {
 	let basic_auth: &str = basic_auth_header.unwrap().to_str().unwrap();
 	println!("{}", basic_auth);
 
+	if "eyJ1c2VybmFtZSI6Imtla3ciLCJwYXNzd29yZCI6Im5vcGUifQ==" != basic_auth {
+		HttpResponse::Ok().body("false")
+	}
+
 	HttpResponse::Ok().body("true")
 }
 
