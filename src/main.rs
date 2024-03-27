@@ -25,39 +25,12 @@ async fn test(request: HttpRequest) -> impl Responder {
 
 
 
-/*
-						postgres key 85.215.154.152 5432
-		format!("postgres://{}:{}@{}:{}",self.username, self.password, self.host, self.port)
-			
-	let pool = match sqlx::postgres::PgPool::connect(&url).await {
-		Ok(p) => p,
-		Err(e) => return Err(Box::new(e)),
-	};
-
-
-	
-	let query = "INSERT INTO kunde (anrede, name, geburtsdatum, mail, tel, vorlage, farbe, eigeneVorstellungen, sonstiges) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)";
-
-
-			
-
-// get config
-pub fn get_configuration() -> Result<Settings, config::ConfigError> {
-	let settings = config::Config::builder()
-		.add_source(config::File::new("/app/configuration.yaml", config::FileFormat::Yaml))
-		.build()?;
-	settings.try_deserialize::<Settings>()
-}
-*/
-
-
-
-
 // database
 async fn printdata(request: HttpRequest) -> impl Responder {
 	let req_headers = request.headers();
 	let basic_auth_header = req_headers.get("Authorization");
 	let basic_auth: &str = basic_auth_header.unwrap().to_str().unwrap();
+
 
 	let url = format!("postgres://postgres:{}@{}:{}", "key", "85.215.154.152", "5432");
 	
@@ -105,6 +78,7 @@ async fn main() -> std::io::Result<()> {
 		.route("/", web::get().to(index))
 		.route("/login", web::get().to(index))
 		.route("/uploader", web::get().to(index))
+		.route("/printdata", web::get().to(printdata))
 	    .service(test)
 		//.service(index)
 		//.route("/",web::get().to(index2))
