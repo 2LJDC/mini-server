@@ -70,7 +70,7 @@ async fn printdata(request: HttpRequest) -> impl Responder {
 		.await{
 			Ok(data) => data,
 			Err(e) => return HttpResponse::Ok().body("nono"),
-	
+		}
 	
 	HttpResponse::Ok().body(pool)
 }
