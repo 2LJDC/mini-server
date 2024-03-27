@@ -6,7 +6,7 @@ use actix_web::{web, http::header};
 use actix_web::middleware;
 
 
-use actix_web::http::header::{ContentDisposition, DispositionType};
+//use actix_web::http::header::{ContentDisposition, DispositionType};
 use actix_web::Error;
 
 
@@ -87,7 +87,7 @@ async fn status() -> String {
 
 
 // index
-async fn index(req: HttpRequest) -> Result<fs::NamedFile, Error> {
+async fn index() -> Result<fs::NamedFile, Error> {
     let file = fs::NamedFile::open("/app/www/index.html")?;
     Ok(file)
 }
