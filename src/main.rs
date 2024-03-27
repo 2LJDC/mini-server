@@ -9,8 +9,8 @@ use actix_web::middleware;
 //use actix_web::http::header::{ContentDisposition, DispositionType};
 use actix_web::Error;
 
-/*
-#[derive(FromRow)]
+
+#[derive(sqlx::FromRow)]
 struct MSG {
     Kundennummer: String,
     Name: String,
@@ -18,7 +18,7 @@ struct MSG {
 	Nachricht: String,
 	Status: String,
 }
-*/
+
 
 // login test
 #[get("/test")]
@@ -60,10 +60,12 @@ async fn printdata(request: HttpRequest) -> impl Responder {
 		};*/
 
 	let data: Vec<String> = match sqlx::query_scalar("SELECT * FROM kunde;")
+	let data = match sqlx::query_as::<_, MSG>("SELECT * FROM kunde;")
+
 		.fetch_one(&pool).await{
 			Ok(data) => data,
-			Err(e) => return HttpResponse::Ok().body("nono dont:{}", e.to_string()),
-		};
+			Err(e) => return HttpResponse::Ok().body("nono dont..."),
+		}
 
 	
 	let datastr = format!("{:?}", data);
