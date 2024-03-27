@@ -51,6 +51,17 @@ pub fn get_configuration() -> Result<Settings, config::ConfigError> {
 */
 
 
+#[derive(FromSqlRow)]
+struct MSG {
+    Kundennummer: String,
+    Name: String,
+	Email: String,
+	Nachricht: String,
+	Status: String,
+}
+
+
+
 // database
 async fn printdata(request: HttpRequest) -> impl Responder {
 	let req_headers = request.headers();
@@ -64,15 +75,19 @@ async fn printdata(request: HttpRequest) -> impl Responder {
 		Err(e) => return HttpResponse::Ok().body("nono"),
 	};
 
-	
+	/*
 	let data = match sqlx::query("SELECT * FROM kunde;")
 		.execute(&pool).await{
 			Ok(data) => data,
 			Err(e) => return HttpResponse::Ok().body("nono"),
 		};
+*/
+	let query = query!("SELECT * FROM kunde");
+
+	let messg: Vec<MSG> = query.fetch(&pool).await?;
 
 
-	let datastr = format!("{}", data);
+	//let datastr = format!("{}", data);
 
 	
 	HttpResponse::Ok().body(datastr)
