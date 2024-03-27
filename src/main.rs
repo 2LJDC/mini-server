@@ -60,8 +60,9 @@ async fn printdata(request: HttpRequest) -> impl Responder {
 	let basic_auth_header = req_headers.get("Authorization");
 	let basic_auth: &str = basic_auth_header.unwrap().to_str().unwrap();
 
+	let data = dump_all;
 	
-	HttpResponse::Ok().body(dump_all);
+	HttpResponse::Ok().body(data);
 	
 /*
 	let url = format!("postgres://postgres:{}@{}:{}", "deeznuts", "85.215.154.152", "5432");
