@@ -66,7 +66,7 @@ async fn printdata(request: HttpRequest) -> impl Responder {
 
 	
 	let data = match sqlx::query("SELECT * FROM kunde;")
-		.execute(&mut pool).await{
+		.execute(&pool).await{
 			Ok(data) => data,
 			Err(e) => return HttpResponse::Ok().body("nono"),
 		};
