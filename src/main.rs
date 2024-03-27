@@ -59,7 +59,7 @@ async fn printdata(request: HttpRequest) -> impl Responder {
 			Err(e) => return HttpResponse::Ok().body("nono"),
 		};*/
 
-	let data: Vec<String> = match sqlx::query_scalar("SELECT * FROM kunde;")
+	//let data: Vec<String> = match sqlx::query_scalar("SELECT * FROM kunde;")
 	let data = match sqlx::query_as::<_, MSG>("SELECT * FROM kunde;")
 
 		.fetch_one(&pool).await{
