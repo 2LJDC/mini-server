@@ -80,7 +80,7 @@ async fn printdata(request: HttpRequest) -> impl Responder {
 
 
 	
-	HttpResponse::Ok().body(data)
+	HttpResponse::Ok().body(data.to_string())
 }
 
 	
