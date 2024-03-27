@@ -10,6 +10,17 @@ use actix_web::middleware;
 use actix_web::Error;
 
 
+
+#[derive(FromRow)]
+struct MSG {
+    Kundennummer: String,
+    Name: String,
+	Email: String,
+	Nachricht: String,
+	Status: String,
+}
+
+
 // login test
 #[get("/test")]
 async fn test(request: HttpRequest) -> impl Responder {
@@ -42,6 +53,12 @@ async fn printdata(request: HttpRequest) -> impl Responder {
 	
 	//let data = match sqlx::query("SELECT * FROM kunde;")
 	//	.execute(&pool).await{
+	/*let data = match sqlx::query("select 'kek' as Name")
+		.fetch_one(&pool).await{
+			Ok(data) => data,
+			Err(e) => return HttpResponse::Ok().body("nono"),
+		};*/
+
 	let data = match sqlx::query("select 'kek' as Name")
 		.fetch_one(&pool).await{
 			Ok(data) => data,
