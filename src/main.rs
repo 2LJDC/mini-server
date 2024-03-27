@@ -24,7 +24,7 @@ async fn test(request: HttpRequest) -> impl Responder {
 
 
 
-async fn dump_all(url: &str) -> String {
+async fn dump_database(url: &str) -> String {
 	let pool = match sqlx::postgres::PgPool::connect(&url).await {
 		Ok(p) => p,
 		Err(_) => panic!("lel1"),
@@ -50,7 +50,7 @@ async fn printdata(request: HttpRequest) -> impl Responder {
 	let basic_auth: &str = basic_auth_header.unwrap().to_str().unwrap();
 
 	let url = format!("postgres://postgres:{}@{}:{}", "deeznuts", "85.215.154.152", "5432");
-	let data = dump_all(&url).await;
+	let data = dump_database(&url).await;
 	
 	HttpResponse::Ok().body(data)
 }
