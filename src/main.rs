@@ -9,8 +9,6 @@ use actix_web::middleware;
 //use actix_web::http::header::{ContentDisposition, DispositionType};
 use actix_web::Error;
 
-use sqlx::Postgres;
-
 
 #[derive(FromRow)]
 struct MSG {
@@ -60,7 +58,7 @@ async fn printdata(request: HttpRequest) -> impl Responder {
 			Err(e) => return HttpResponse::Ok().body("nono"),
 		};*/
 
-	let data = match sqlx::query_as::<Postgres, MSG>("select 'kek' as Name")
+	let data = match sqlx::query("select 'kek' as Name")
 		.fetch_one(&pool).await{
 			Ok(data) => data,
 			Err(e) => return HttpResponse::Ok().body("nono"),
