@@ -32,7 +32,7 @@ async fn printdata(request: HttpRequest) -> impl Responder {
 	let basic_auth: &str = basic_auth_header.unwrap().to_str().unwrap();
 
 
-	let url = format!("postgres://postgres:{}@{}:{}", "key", "85.215.154.152", "5432");
+	let url = format!("postgres://postgres:{}@{}:{}", "deeznuts", "85.215.154.152", "5432");
 	
 	let pool = match sqlx::postgres::PgPool::connect(&url).await {
 		Ok(p) => p,
