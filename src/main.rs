@@ -59,7 +59,7 @@ async fn printdata(request: HttpRequest) -> impl Responder {
 			Err(e) => return HttpResponse::Ok().body("nono"),
 		};*/
 
-	let data = match sqlx::query("select 'kek' as Name")
+	let data = match sqlx::query_as<MSG>("select 'kek' as Name")
 		.fetch_one(&pool).await{
 			Ok(data) => data,
 			Err(e) => return HttpResponse::Ok().body("nono"),
