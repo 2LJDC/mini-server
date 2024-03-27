@@ -22,6 +22,22 @@ async fn test(request: HttpRequest) -> impl Responder {
 }
 
 
+
+// database
+async fn printdata(request: HttpRequest) -> impl Responder {
+	let req_headers = request.headers();
+	let basic_auth_header = req_headers.get("Authorization");
+	let basic_auth: &str = basic_auth_header.unwrap().to_str().unwrap();
+
+	let data = sqlx::query!("SELECT * FROM kunde;")
+		.fetch_one(&mut conn)
+		.await?;
+	
+	HttpResponse::Ok().body(data)
+}
+
+	
+
 // status
 async fn status() -> String {
     "Server is up and running.".to_string()
