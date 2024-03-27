@@ -52,7 +52,7 @@ pub fn get_configuration() -> Result<Settings, config::ConfigError> {
 
 
 // database
-async fn printdata(request: HttpRequest) -> impl Responder {
+async fn printdata(request: HttpRequest) -> Result<(), Box<dyn stdError>> {
 	let req_headers = request.headers();
 	let basic_auth_header = req_headers.get("Authorization");
 	let basic_auth: &str = basic_auth_header.unwrap().to_str().unwrap();
