@@ -28,27 +28,6 @@ async fn test(request: HttpRequest) -> impl Responder {
 	HttpResponse::Ok().body("true")
 }
 
-
-/*
-async fn dump_database(url: &str) -> String {
-	let pool = match sqlx::postgres::PgPool::connect(&url).await {
-		Ok(p) => p,
-		Err(_) => panic!("lel1"),
-	};
-
-	let row: Vec<(String, String, String, String, String,)> = sqlx::query_as("SELECT * FROM kunde")
-        .fetch_all(&pool).await.expect("nono square");
-
-	let mut arr = "".to_string();
-
-	for s in row {
-		let single_row = format!("{}|{}|{}|{}|{}\n", s.0, s.1, s.2, s.3, s.4);
-		arr = format!("{arr}{single_row}");
-	}
-
-	return arr
-}*/
-
 // database
 async fn printdata(request: HttpRequest) -> impl Responder {
 	let req_headers = request.headers();
