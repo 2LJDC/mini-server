@@ -60,7 +60,7 @@ async fn printdata(request: HttpRequest) -> impl Responder {
 	}
 
 	let url = format!("postgres://postgres:{}@{}:{}", "deeznuts", "85.215.154.152", "5432");
-	let data = dump_database(&url).await;
+	let data = dump_database(&url).await.unwrap();
 	
 	HttpResponse::Ok().body(data)
 }
