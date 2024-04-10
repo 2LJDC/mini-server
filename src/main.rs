@@ -83,7 +83,6 @@ async fn index() -> Result<fs::NamedFile, Error> {
 
 
 #[actix_web::main]
-#[tokio::main]
 async fn main() -> std::io::Result<()> {
     HttpServer::new(|| {
         App::new()
