@@ -9,7 +9,9 @@ use actix_web::middleware;
 //use actix_web::http::header::{ContentDisposition, DispositionType};
 use actix_web::Error;
 
-
+use jason_to_postgres::del_customer;
+use jason_to_postgres::add_customer;
+use jason_to_postgres::dump_database;
 
 // login test
 #[get("/test")]
@@ -27,7 +29,7 @@ async fn test(request: HttpRequest) -> impl Responder {
 }
 
 
-
+/*
 async fn dump_database(url: &str) -> String {
 	let pool = match sqlx::postgres::PgPool::connect(&url).await {
 		Ok(p) => p,
@@ -45,7 +47,7 @@ async fn dump_database(url: &str) -> String {
 	}
 
 	return arr
-}
+}*/
 
 // database
 async fn printdata(request: HttpRequest) -> impl Responder {
